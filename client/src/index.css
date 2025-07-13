@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+@import "tailwindcss";
+
+* {
+  font-family: "Outfit", sans-serif;
+}
+
+/* Custom theme colors for our project
+   --color-primary: main brand green (used for buttons, highlights)
+   --color-primary-dull: duller version of the green (used for hover or backgrounds)
+*/
+@theme {
+  --color-primary: #77af1f;
+  --color-primary-dull: #639419;
+}
+
+.no-scrollbar::-webkit-scrollbar{
+  display: none;
+}
