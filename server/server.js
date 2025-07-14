@@ -18,8 +18,22 @@ const port = process.env.PORT || 4000;
 await connectDB()
 await connectCloudinary()
 
-// Allow multiple origins
-const allowedOrigins = ['http://localhost:5173']
+// Allow multiple origins (local + deployed)
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://fresh-basket-mu.vercel.app'
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
 
 app.post('/stripe', express.raw({type: 'application-json'}), stripeWebhooks)
 
