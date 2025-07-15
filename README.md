@@ -140,7 +140,7 @@ npm run dev
 
 ## 💌 Contact
 
-**Made with ❤️ by Kushal J.**
+**Made with ❤️ by Kushal.**
 For queries, reach out:
 
 * Email: [kushalj400231@gmail.com](kushalj400231@gmail.com)
