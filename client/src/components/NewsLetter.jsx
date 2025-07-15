@@ -20,7 +20,7 @@ const NewsLetter = () => {
         <div className="relative flex flex-col items-center justify-center text-center space-y-4 py-10 px-4 w-full mt-10">
             {/* Floating alert */}
             {showAlert && (
-                <div className="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 bg-primary text-white px-6 py-2 rounded-full shadow-md animate-fadeInOut">
+                <div className="fixed top-5 left-1/2 transform -translate-x-1/2 z-50 bg-primary text-white px-4 py-1.5 rounded-full shadow-md animate-fadeInOut text-sm sm:text-base whitespace-nowrap">
                     Subscribed successfully!
                 </div>
             )}

@@ -35,7 +35,7 @@ const Contact = () => {
                     className={`fixed left-1/2 transform -translate-x-1/2 top-6 transition-all duration-500 ease-in-out ${isSubmitted ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-6 pointer-events-none"
                         }`}
                 >
-                    <div className="bg-primary text-white px-6 py-2 rounded-full shadow-lg text-sm font-medium">
+                    <div className="bg-primary text-white px-4 py-1.5 rounded-full shadow-lg text-sm md:text-base font-medium whitespace-nowrap max-w-[90vw] overflow-hidden text-ellipsis">
                         🎉 Message sent successfully!
                     </div>
                 </div>

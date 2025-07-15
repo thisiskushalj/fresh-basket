@@ -71,7 +71,7 @@ const Testimonial = () => {
             <p className="text-sm py-4 text-gray-800">{card.message}</p>
             <div className="flex items-center justify-between text-slate-500 text-xs">
                 <div className="flex items-center gap-1">
-                   
+
                 </div>
                 <p>{card.date}</p>
             </div>
@@ -81,21 +81,21 @@ const Testimonial = () => {
     return (
         <>
             <style>{`
-            @keyframes marqueeScroll {
-                0% { transform: translateX(0%); }
-                100% { transform: translateX(-50%); }
-            }
+  @keyframes marqueeScroll {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+  }
 
-            .marquee-inner {
-                animation: marqueeScroll 25s linear infinite;
-            }
+  .marquee-inner {
+    animation: marqueeScroll 25s linear infinite;
+  }
 
-            .marquee-reverse {
-                animation-direction: reverse;
-            }
-        `}</style>
+  .marquee-reverse {
+    animation-direction: reverse;
+  }
+`}</style>
 
-             <div className="w-full px-6 md:px-0 py-12">
+            <div className="w-full px-6 md:px-0 py-12">
                 <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-center text-gray-800">
                     What Our Customers Say ❤️
                 </h2>

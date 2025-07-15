@@ -92,6 +92,7 @@ const Login = () => {
                                     className="hidden"
                                 />
                             </div>
+                            <p className='mt-2'>Only .jpg , .jpeg and .png files accepted</p>
                         </div>
 
                         <div className="flex items-center w-full mt-8 bg-white border border-gray-300/80 h-12 rounded-full overflow-hidden pl-6 gap-2">
