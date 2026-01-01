@@ -1,35 +1,38 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
 const authSeller = (req, res, next) => {
+  // ✅ Allow CORS preflight to pass
+  if (req.method === "OPTIONS") {
+    return next();
+  }
+
   try {
     const sellerToken = req.cookies?.sellerToken;
 
-    // ❌ No token → not authorized
     if (!sellerToken) {
       return res.status(401).json({
         success: false,
-        message: 'Not Authorized'
+        message: "Not Authorized",
       });
     }
 
-    const tokenDecode = jwt.verify(sellerToken, process.env.JWT_SECRET);
+    const tokenDecode = jwt.verify(
+      sellerToken,
+      process.env.JWT_SECRET
+    );
 
-    // ❌ Token valid but not seller
     if (tokenDecode.email !== process.env.SELLER_EMAIL) {
       return res.status(403).json({
         success: false,
-        message: 'Not Authorized'
+        message: "Not Authorized",
       });
     }
 
-    // ✅ Authorized
     next();
-
-  } catch (error) {
-    // ❌ Invalid / expired token
+  } catch {
     return res.status(401).json({
       success: false,
-      message: 'Not Authorized'
+      message: "Not Authorized",
     });
   }
 };

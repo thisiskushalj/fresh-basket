@@ -1,36 +1,34 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
 const authUser = (req, res, next) => {
+  // ✅ Allow preflight
+  if (req.method === "OPTIONS") {
+    return next();
+  }
+
   try {
     const token = req.cookies?.token;
 
-    // ❌ No token
     if (!token) {
       return res.status(401).json({
         success: false,
-        message: 'Not Authorized'
+        message: "Not Authorized",
       });
     }
 
-    const tokenDecode = jwt.verify(token, process.env.JWT_SECRET);
+    const tokenDecode = jwt.verify(
+      token,
+      process.env.JWT_SECRET
+    );
 
-    // ❌ Invalid token
-    if (!tokenDecode?.id) {
-      return res.status(401).json({
-        success: false,
-        message: 'Not Authorized'
-      });
-    }
-
-    // ✅ Attach user safely
-    req.user = { id: tokenDecode.id };
+    req.body = req.body || {};
+    req.body.userId = tokenDecode.id;
 
     next();
-
-  } catch (error) {
+  } catch {
     return res.status(401).json({
       success: false,
-      message: 'Not Authorized'
+      message: "Not Authorized",
     });
   }
 };
