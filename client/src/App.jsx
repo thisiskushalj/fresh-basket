@@ -1,58 +1,75 @@
-import React from 'react'
-import Navbar from './components/Navbar'
-import Home from './pages/Home'
-import { Route, Routes, useLocation } from 'react-router-dom'
-import { Toaster } from "react-hot-toast"
-import Footer from './components/Footer'
-import { useAppContext } from './context/AppContext'
-import Login from './components/Login'
-import AllProducts from './pages/AllProducts'
-import ProductCategory from './pages/ProductCategory'
-import ProductDetails from './pages/ProductDetails'
-import Cart from './pages/Cart'
-import AddAddress from './pages/AddAddress'
-import MyOrders from './pages/MyOrders'
-import SellerLogin from './components/seller/SellerLogin'
-import SellerLayout from './pages/seller/SellerLayout'
-import AddProduct from './pages/seller/AddProduct'
-import ProductList from './pages/seller/ProductList'
-import Orders from './pages/seller/Orders'
-import Contact from './pages/Contact'
-import Loading from './components/Loading'
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import Footer from "./components/Footer";
+import { useAppContext } from "./context/AppContext";
+import Login from "./components/Login";
+import AllProducts from "./pages/AllProducts";
+import ProductCategory from "./pages/ProductCategory";
+import ProductDetails from "./pages/ProductDetails";
+import Cart from "./pages/Cart";
+import AddAddress from "./pages/AddAddress";
+import MyOrders from "./pages/MyOrders";
+import SellerLogin from "./components/seller/SellerLogin";
+import SellerLayout from "./pages/seller/SellerLayout";
+import AddProduct from "./pages/seller/AddProduct";
+import ProductList from "./pages/seller/ProductList";
+import Orders from "./pages/seller/Orders";
+import Contact from "./pages/Contact";
+import Loading from "./components/Loading";
 
 const App = () => {
-  const isSellerPath = useLocation().pathname.includes("seller");
+  const location = useLocation();
+  const isSellerPath = location.pathname.startsWith("/seller");
   const { showUserLogin, isSeller } = useAppContext();
 
   return (
     <div className="min-h-screen flex flex-col text-default text-gray-700 bg-white">
-      {isSellerPath ? null : <Navbar />}
+      {!isSellerPath && <Navbar />}
       {showUserLogin && <Login />}
 
       <Toaster />
 
-      <main className={`flex-grow ${isSellerPath ? "" : "px-6 md:px-16 lg:px-24 xl:px-32"}`}>
+      <main
+        className={`flex-grow ${
+          isSellerPath ? "" : "px-6 md:px-16 lg:px-24 xl:px-32"
+        }`}
+      >
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/products' element={<AllProducts />} />
-          <Route path='/contact' element={<Contact />} />
-          <Route path='/products/:category' element={<ProductCategory />} />
-          <Route path='/products/:category/:id' element={<ProductDetails />} />
-          <Route path='/cart' element={<Cart />} />
-          <Route path='/add-address' element={<AddAddress />} />
-          <Route path='/my-orders' element={<MyOrders />} />
-          <Route path='/loader' element={<Loading />} />
-          <Route path='/seller' element={isSeller ? <SellerLayout /> : <SellerLogin />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/products" element={<AllProducts />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/products/:category" element={<ProductCategory />} />
+          <Route
+            path="/products/:category/:id"
+            element={<ProductDetails />}
+          />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/add-address" element={<AddAddress />} />
+          <Route path="/my-orders" element={<MyOrders />} />
+          <Route path="/loader" element={<Loading />} />
+
+          <Route
+            path="/seller"
+            element={isSeller ? <SellerLayout /> : <SellerLogin />}
+          >
             <Route index element={isSeller ? <AddProduct /> : null} />
-            <Route path='product-list' element={isSeller ? <ProductList /> : null} />
-            <Route path='orders' element={isSeller ? <Orders /> : null} />
+            <Route
+              path="product-list"
+              element={isSeller ? <ProductList /> : null}
+            />
+            <Route
+              path="orders"
+              element={isSeller ? <Orders /> : null}
+            />
           </Route>
         </Routes>
       </main>
 
       {!isSellerPath && <Footer />}
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
