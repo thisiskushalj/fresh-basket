@@ -23,8 +23,9 @@ export const sellerLogin = async (req, res) => {
 
     res.cookie("sellerToken", token, {
       httpOnly: true,
-      secure: true,        // 🔥 MUST BE TRUE
-      sameSite: "none",    // 🔥 MUST BE NONE
+      secure: true,          // ✅ required on Vercel
+      sameSite: "none",      // ✅ required for cross-site cookies
+      path: "/",             // ✅ important
       maxAge: 7 * 24 * 60 * 60 * 1000,
     });
 
