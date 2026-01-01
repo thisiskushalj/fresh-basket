@@ -1,13 +1,25 @@
-import express from 'express';
-import { isAuth, login, logout, register } from '../controllers/userController.js';
-import authUser from '../middleware/authUser.js';
-import upload from '../middleware/multer.js'; // ✅ import multer setup
+import express from "express";
+import authUser from "../middleware/authUser.js";
+import upload from "../middleware/multer.js";
+import {
+  register,
+  login,
+  isAuth,
+  logout
+} from "../controllers/userController.js";
 
 const userRouter = express.Router();
 
-userRouter.post('/register', upload.single("profilePic"), register); // ✅ supports profilePic
-userRouter.post('/login', login);
-userRouter.get('/is-auth', authUser, isAuth);
-userRouter.get('/logout', authUser, logout);
+// Register user (with optional profile picture)
+userRouter.post("/register", upload.single("profilePic"), register);
+
+// Login user
+userRouter.post("/login", login);
+
+// Check user authentication
+userRouter.get("/is-auth", authUser, isAuth);
+
+// Logout user
+userRouter.get("/logout", authUser, logout);
 
 export default userRouter;
