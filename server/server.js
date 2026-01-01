@@ -21,8 +21,31 @@ import { stripeWebhooks } from "./controllers/orderController.js";
 const app = express();
 const port = process.env.PORT || 4000;
 
+/* =====================================================
+   🔥 GLOBAL PREFLIGHT HANDLER (ABSOLUTELY REQUIRED)
+   ===================================================== */
+app.use((req, res, next) => {
+  if (req.method === "OPTIONS") {
+    res.header(
+      "Access-Control-Allow-Origin",
+      req.headers.origin || "https://fresh-basket-mu.vercel.app"
+    );
+    res.header("Access-Control-Allow-Credentials", "true");
+    res.header(
+      "Access-Control-Allow-Methods",
+      "GET,POST,PUT,DELETE,OPTIONS"
+    );
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Content-Type, Authorization"
+    );
+    return res.sendStatus(204);
+  }
+  next();
+});
+
 /* =========================
-   STRIPE WEBHOOK (ISOLATED)
+   STRIPE WEBHOOK (RAW BODY)
    ========================= */
 app.post(
   "/stripe",
@@ -38,26 +61,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 /* =========================
-   CORS (SAFE)
+   CORS (DO NOT BLOCK)
    ========================= */
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://fresh-basket-mu.vercel.app",
-];
-
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) return callback(null, true);
-      return callback(null, true); // NEVER BLOCK
-    },
+    origin: [
+      "http://localhost:5173",
+      "https://fresh-basket-mu.vercel.app",
+    ],
     credentials: true,
   })
 );
-
-// Preflight
-app.options("*", cors());
 
 /* =========================
    ROUTES
